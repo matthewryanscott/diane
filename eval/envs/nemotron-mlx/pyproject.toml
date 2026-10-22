@@ -1,0 +1,8 @@
+[project]
+name = "eval-nemotron-mlx"
+version = "0.1.0"
+description = "Isolated env for the Nemotron-3-Diarization MLX port (eval/run_nemotron_mlx.py)"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "mlx-audio==0.5.6",
+]

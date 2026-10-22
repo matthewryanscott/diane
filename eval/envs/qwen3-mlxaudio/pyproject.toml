@@ -1,0 +1,8 @@
+[project]
+name = "eval-qwen3-mlxaudio"
+version = "0.1.0"
+description = "Isolated env for the mlx-audio Qwen3-ASR path (comparison only)"
+requires-python = ">=3.12"
+dependencies = [
+    "mlx-audio==0.5.6",
+]

@@ -1,0 +1,10 @@
+[project]
+name = "eval-granite-cohere"
+version = "0.1.0"
+description = "Isolated env for Granite-speech-4.1 and Cohere Transcribe via mlx-audio (eval/run_granite.py, eval/run_cohere.py)"
+requires-python = ">=3.12"
+dependencies = [
+    "jinja2>=3.1.6",
+    "mlx-audio==0.5.6",
+    "sentencepiece>=0.2.2",
+]

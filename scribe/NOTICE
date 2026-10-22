@@ -1,0 +1,33 @@
+Scribe provenance and local modifications
+=======================================
+
+Upstream: https://github.com/trailofbits/scribe
+Verified upstream revision: dda3b31a3077ab847437c82c5e3a4730d1327c78
+Copyright (c) 2026 Trail of Bits, Inc.
+License: MIT; the unmodified upstream permission and warranty notice is in LICENSE.
+
+The original Diane import (e68acaf200b3c866facc866f2a725eb1658ee6ed)
+contains byte-identical upstream scribe.py, LICENSE, README.md, tests,
+.gitignore and .github/dependabot.yml at the revision above. Git blob IDs
+establish content identity; this does not imply upstream endorsement of
+Diane or of the changes below. Imported pyproject.toml and uv.lock already
+differed; .nwave/des-config.json was an additional local file.
+
+Diane modifications through a815bc62f39d666d78338ac93c3c06589d9f9866:
+- Nemotron 3 through mlx-audio as default diarization; optional senko path.
+- Recognition chunk/overlap settings and word-level speaker merging.
+- Embeddings and structured results used by Diane's speaker identity workflow.
+- Original-audio normalization and temporary-file ownership within Scribe.
+- Worker shutdown, bounded diagnostics, phase callbacks and error propagation.
+- Tests and documentation for those changes.
+These modified source, tests and documentation are not the unmodified
+upstream release. Local contributions are offered under MIT; the upstream
+copyright and license remain in force. Diane's root LICENSE does not replace
+the upstream notice.
+
+This source distribution is not a license grant for dependency code, model
+weights, training/evaluation data, audio, transcripts, embeddings or other
+outputs. These inputs retain their own rights and terms. See
+../docs/licensing/index.md in a Diane source checkout for the scoped audit,
+including unresolved provenance and redistribution gates. That relative path
+is not part of the standalone Scribe wheel.

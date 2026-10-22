@@ -1,0 +1,10 @@
+[project]
+name = "diane-eval"
+version = "0.1.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "meeteval>=0.4.3",
+    "numpy>=2.4.4",
+    "pyannote-metrics>=4.1",
+    "whisper-normalizer>=0.1.15",
+]

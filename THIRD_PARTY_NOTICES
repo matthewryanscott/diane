@@ -1,0 +1,55 @@
+Diane distribution scope and third-party notices
+===============================================
+
+Diane's root MIT license applies to first-party source and documentation,
+including local modifications for which the project can grant permission.
+It does not replace licenses of third-party components, confer rights to
+voices or personal information, or license externally obtained model weights,
+datasets, recordings, transcripts, embeddings or generated artifacts.
+
+Vendored Scribe
+---------------
+Origin: https://github.com/trailofbits/scribe
+Content-verified upstream revision: dda3b31a3077ab847437c82c5e3a4730d1327c78
+Copyright (c) 2026 Trail of Bits, Inc.
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+The source checkout includes Scribe's original LICENSE and a NOTICE describing
+local modifications. The Diane wheel contains only the diane Python package,
+not the Scribe module or dependency libraries. Install the audited companion
+Scribe distribution when installing Diane outside its uv source checkout;
+the bare dependency name in wheel metadata does not select the local source.
+Do not substitute an unrelated registry package named scribe.
+
+External dependencies, runtime environments, tools and assets
+-----------------------------------------------------------
+Dependencies are not bundled in Diane's wheel. Their original license and
+notice files must remain intact in any environment or aggregate distribution
+that does include them. The root MIT identifier is not an aggregate license.
+A lock record is not evidence that all platform-specific artifacts are shipped
+or have identical notices. Models downloaded at runtime are separate assets.
+
+The source checkout's docs/licensing/index.md links the exact scoped package
+inventory, primary-source evidence, model/data terms, obligations and unresolved
+gates. Consult it before redistributing a checkout, environment, executable,
+container, model cache, dataset or generated results. This audit is not legal
+advice and does not itself authorize release of unverified inputs.
