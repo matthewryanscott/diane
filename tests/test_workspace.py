@@ -45,13 +45,10 @@ def test_cli_uses_startup_workspace_not_package_location(tmp_path, layout):
         "title: Workspace meeting\nspeakers: [SPEAKER_00]\n---\n"
         "[00:00] SPEAKER_00: Workspace sentence.\n"
     )
-    (workspace / "server-url.txt").write_text("http://localhost:11434\n")
-    (workspace / "diane.toml").write_text('[[servers]]\nurl = "@server-url.txt"\n')
     if layout == "relocated-package":
         # The former __file__-based root would select these decoys instead.
         (package_root / "Recordings").mkdir()
         (package_root / "transcripts").mkdir()
-        (package_root / "diane.toml").write_text('[[servers]]\nurl = "wrong-package-root"\n')
     env = {
         **os.environ,
         "PYTHONPATH": str(package_root),
@@ -69,15 +66,14 @@ def test_cli_uses_startup_workspace_not_package_location(tmp_path, layout):
 
     paths = json.loads(run(
         "import json; from pathlib import Path; import diane.db as db; import diane.cli as cli; "
-        "import diane.config as config; import diane.transcribe as transcribe; "
+        "import diane.transcribe as transcribe; "
         "print(json.dumps([str(db.PROJECT_ROOT), str(db.RECORDINGS_DIR), "
-        "str(cli.TRANSCRIPTS_DIR), str(config.CONFIG_PATH), "
-        "str(transcribe.RECORDINGS_DIR), config.get_config().servers[0].url, str(Path(db.__file__).resolve())]))"
+        "str(cli.TRANSCRIPTS_DIR), str(transcribe.RECORDINGS_DIR), "
+        "str(Path(db.__file__).resolve())]))"
     ).stdout)
     assert paths == [
         str(workspace.resolve()), str(recordings.resolve()), str(transcripts.resolve()),
-        str((workspace / "diane.toml").resolve()), str(recordings.resolve()),
-        "http://localhost:11434", str((package_root / "diane" / "db.py").resolve()),
+        str(recordings.resolve()), str((package_root / "diane" / "db.py").resolve()),
     ]
     cli = "from diane.cli import app; app()"
     listing = run(cli, "recording", "list", "--limit", "0")
@@ -105,8 +101,5 @@ def test_cli_uses_startup_workspace_not_package_location(tmp_path, layout):
     empty = tmp_path / "empty-workspace"
     empty.mkdir()
     assert run(cli, "transcript", "list", "--json", cwd=empty).stdout == ""
-    defaults = run(
-        "from diane.config import load_config; from diane.db import PROJECT_ROOT; "
-        "print(PROJECT_ROOT); print(len(load_config().servers))", cwd=empty,
-    )
-    assert defaults.stdout.splitlines() == [str(empty.resolve()), "0"]
+    root = run("from diane.db import PROJECT_ROOT; print(PROJECT_ROOT)", cwd=empty)
+    assert root.stdout.strip() == str(empty.resolve())

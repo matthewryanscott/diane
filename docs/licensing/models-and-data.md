@@ -57,7 +57,7 @@ Apply the same CC BY, Apache and OpenMDW redistribution duties described above.
 - **Qwen tokenizers:** only the Japanese/Korean extra is excluded. Exact-release SoyNLP/DyNet38 grant/provenance holds remain historical in [Dependencies](dependencies.md).
 
 `aufklarer/Qwen3-ASR-0.6B-MLX-4bit` was reported cached but not used. Official Qwen findings do not clear it.
-`gemma4:e4b` is a configuration default, not an executed model dependency. No product request consumer was established.
+`gemma4:e4b` was a default in the retired, unused server loader, not an executed model dependency. No product request consumer was established.
 The audited [Ollama manifest](https://registry.ollama.ai/v2/library/gemma4/manifests/e4b) SHA-256 is `dc35e8d9c6061baa6f0fa870975ab6932e2542b579b13ea0f199fa4bb7300c9c`.
 Its [Apache-2.0 license layer](https://registry.ollama.ai/v2/library/gemma4/blobs/sha256:7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2) digest is `sha256:7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2`.
 The mutable tag does not identify an operator's installed model.

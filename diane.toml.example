@@ -1,4 +1,0 @@
-# Optional Ollama server configuration.
-[[servers]]
-url = "http://localhost:11434"
-model = "gemma4:e4b"

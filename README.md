@@ -16,7 +16,7 @@ Choose a guide for your goal:
 
 - **Learn:** [Your first meeting transcript](docs/tutorial.md). Install Diane in a fresh checkout and transcribe a non-sensitive, synthetic two-voice meeting.
 - **Do:** [Meeting workflows](docs/how-to.md). Process recurring recordings, name and review speakers, find transcripts, and solve workflow problems.
-- **Look up:** [Reference](docs/reference.md). Commands, configuration, discovery rules, file formats, models, requirements, and errors.
+- **Look up:** [Reference](docs/reference.md). Commands, discovery rules, file formats, models, requirements, and errors.
 - **Understand:** [How Diane works](docs/explanation.md). Local inference, downloads, speaker identity, enrollment, privacy, and model tradeoffs.
 
 See the [evaluation guide](eval/README.md) for measurements and their limits.
@@ -28,7 +28,7 @@ Use macOS on Apple Silicon, Python 3.13, [uv](https://docs.astral.sh/uv/), and t
 Installation and initial model downloads can need network access.
 Transcription, diarization, and voiceprint matching run locally.
 
-Run Diane from the workspace containing `Recordings/`, `transcripts/`, and optional `diane.toml`.
+Run Diane from the workspace containing `Recordings/` and `transcripts/`.
 In a source checkout, use its root with `uv run diane`; for an installed wheel, enter your data workspace and invoke the environment's `bin/diane` directly.
 Paths follow the startup working directory, never the package install directory.
 

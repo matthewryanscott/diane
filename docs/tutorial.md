@@ -216,7 +216,6 @@ This verifies a clean project environment, not an empty-cache installation.
 | Existing-output and no-pending commands | Left existing transcripts unchanged and reported no pending work |
 | Absolute conversion and time slicing | Converted both transcripts and returned the synthetic turns in the selected day |
 | Scribe text, JSON, no-diarization, and senko modes | Wrote or printed the documented formats, including default output naming and plain JSON |
-| Configuration example | Loaded the literal server URL and model without a network connection from the loader |
 | Missing IDs, missing audio, and invalid audio | Reported lookup/input/decode errors with exit status 1 |
 
 All three source copies retained the sample's SHA-256 after processing.

@@ -1,6 +1,6 @@
 # Reference
 
-This page describes Diane's commands, configuration, file formats, and Python interfaces.
+This page describes Diane's commands, file formats, and Python interfaces.
 Examples use `uv run diane` from a source checkout's root; that directory is the workspace.
 `ID` means a recording or transcript ID, according to the command's selection rules below.
 
@@ -21,7 +21,7 @@ It sets a macOS deployment target of 14.0. That declaration does not establish s
 The [walkthrough](tutorial.md#walkthrough-evidence) reused cached dependencies and did not verify a cold native rebuild.
 
 Diane captures the shell's current working directory at process startup as its workspace (`diane.db.PROJECT_ROOT`).
-Discovery reads `Recordings/`, generated transcripts and voiceprint sidecars live in `transcripts/`, and configuration defaults to `diane.toml`, all under that workspace.
+Discovery reads `Recordings/`, and generated transcripts and voiceprint sidecars live in `transcripts/`, all under that workspace.
 `slice` scans workspace-wide `.txt` files, not the package's install directory.
 There are no command-line directory overrides, parent-directory searches, or package-location fallbacks.
 
@@ -62,14 +62,13 @@ Scribe also removes its temporary model-output directories. It leaves the origin
 Dependency installation and initial model downloads may require network access.
 The evaluated default model downloads did not require an account, but that is not an authentication guarantee for every dependency or future version.
 Recognition, diarization, and voiceprint matching execute locally.
-Diane does not submit audio to the servers in `diane.toml`.
 
 Diane and Scribe do not define a model cache directory or expose cache/download flags.
 `uvx` manages its tool environments, and the model dependencies manage downloaded weights.
 The repository does not fix their cache locations or guarantee that a cache is complete.
 An existing installation is not a promise of offline operation: missing environments or model files can still require downloads.
 There is no Diane cache purge, model prefetch, offline-mode, or download-retry command.
-See the [licensing inventory](licensing/index.md) for provenance, obligations, and unresolved use gates, not runtime configuration.
+See the [licensing inventory](licensing/index.md) for provenance, obligations, and unresolved use gates.
 
 ## Diane command surface
 
@@ -188,45 +187,6 @@ Transcript path lookup alone uses case-insensitive prefix matching and requires 
 A transcript may remain visible or resolvable after its source recording disappears.
 A renamed same-ID transcript can skip batch transcription while a single-recording command still requires the canonical path.
 Commands do not rename transcripts to reconcile these differences.
-
-## Configuration: `diane.toml`
-
-`diane.config` reads `diane.toml` at the startup workspace root by default.
-The current schema contains only `servers`, represented by TOML `[[servers]]` entries.
-A missing file produces an empty server list.
-
-```toml
-# Illustrative configuration only. Current meeting commands do not use it.
-[[servers]]
-url = "http://localhost:11434"
-model = "gemma4:e4b"
-```
-
-| Field | Requirement | Meaning |
-| --- | --- | --- |
-| `servers` | Optional array, default empty | Ordered `ServerConfig` values. |
-| `servers[].url` | Required string | Resolved URL value. The loader does not make a connection. |
-| `servers[].model` | Optional string, default `gemma4:e4b` | Resolved model value. It does not select a transcription or diarization model. |
-
-Both strings support these resolution rules:
-
-| Form | Resolution |
-| --- | --- |
-| Plain text | Returned unchanged. |
-| `!command` | Runs a shell command and uses stripped stdout. A nonzero return raises `RuntimeError` with available stderr. |
-| `@path` | Reads and strips a file. Relative paths resolve beside the configuration file. |
-| `@path:KEY` | Reads a simple dotenv-style `KEY=value` entry, stripping surrounding matching quotes. Falls back to environment `KEY` if the file or key is absent. |
-
-The dotenv reader ignores blank lines, comment lines, and lines without `=`. It is not a shell parser.
-File reads retry I/O errors. FIFO reads also retry empty content, with exponential delay and random backoff.
-Missing references without an applicable environment fallback raise `RuntimeError`.
-Invalid TOML and missing required `url` values remain errors.
-Only load configuration you trust: `!command` executes through the shell.
-
-`load_config(path=None)` returns a `DianeConfig` containing `ServerConfig(url, model)` values.
-`get_config()` loads lazily and caches the result in-process.
-Current Diane meeting commands do not call this loader or use the server list.
-There is no active server-backed summarization or calendar configuration.
 
 ## Transcript and JSONL schemas
 
@@ -412,6 +372,6 @@ The CLI and `diane.speakers` retain prompts, playback, snippets, and timestamp a
 ## Source of truth
 
 This reference follows the current implementations in [CLI](../diane/cli.py), [discovery and association](../diane/db.py),
-[configuration](../diane/config.py), [frontmatter](../diane/frontmatter.py), [timestamps](../diane/timestamps.py),
+[frontmatter](../diane/frontmatter.py), [timestamps](../diane/timestamps.py),
 [transcription](../diane/transcribe.py), [speaker interaction](../diane/speakers.py), [identity](../diane/voiceprints.py),
 and [Scribe](../scribe/scribe.py), with dependencies declared in the two `pyproject.toml` files.
